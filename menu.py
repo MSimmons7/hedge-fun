@@ -12,26 +12,46 @@ from PyInquirer import Validator, ValidationError
 
 from examples import custom_style_2
 
+api_endpoint = 'https://paper-api.alpaca.markets'
+api_key = ''
+secret_key = ''
 
-class PhoneNumberValidator(Validator):
-    def validate(self, document):
-        ok = regex.match('^([01]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$', document.text)
-        if not ok:
-            raise ValidationError(
-                message='Please enter a valid phone number',
-                cursor_position=len(document.text))  # Move cursor to end
+def main():
+    ask_for_api_keys()
 
 print('Welcome to HedgeFun, a comprehensive algorithmic trading CLI.')
 
-api_endpoint = 'https://paper-api.alpaca.markets'
 
-questions = [
-    {
-        'type': 'input',
-        'name': 'api_key',
-        'message': 'Please input your Alpaca API key:',
-    },
-]
+def ask_for_api_keys():
+    questions = [
+        {
+            'type': 'list',
+            'name': 'response',
+            'message': 'Would you like to input your API keys?',
+            'choices': ['Yes', 'No']
+        }
+    ]
+    answer = prompt(questions, style=custom_style_2)
+    if (answer['response'] == 'Yes'):
+        get_credentials()
+    else:
+        print('Your credentials are set')    
 
-answers = prompt(questions, style=custom_style_2)
-pprint(answers)
+def get_credentials():
+    questions = [
+        {
+            'type': 'input',
+            'name': 'api_key',
+            'message': 'Please input your Alpaca API key:',
+        },
+        {
+            'type': 'input',
+            'name': ''
+        }
+    ]
+
+    answers = prompt(questions, style=custom_style_2)
+    pprint(answers)
+
+if __name__ == "__main__":
+    main()

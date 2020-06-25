@@ -3,14 +3,18 @@ import pandas as pd
 import time
 import logging
 import concurrent.futures
+import os
 
 from .universe import Universe
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
+key_id = os.environ['KEY_ID']
+secret_id = os.environ['SECRET_ID']
+
 NY = 'America/New_York'
-api = tradeapi.REST()
+api = tradeapi.REST(key_id=key_id, secret_key=secret_id,)
 
 
 def _dry_run_submit(*args, **kwargs):

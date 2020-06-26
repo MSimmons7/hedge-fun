@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sp-dips
+  labels:
+    app: sp-dips
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sp-dips
+  template:
+    metadata:
+      labels:
+        app: sp-dips
+    spec:
+      containers:
+      - name: sp-dips
+        image: docker.io/msimmons719/hedge-fun:sp-dips

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: long-short
+  labels:
+    app: long-short
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: long-short
+  template:
+    metadata:
+      labels:
+        app: long-short
+    spec:
+      containers:
+      - name: long-short
+        image: docker.io/msimmons719/hedge-fun:long-short
